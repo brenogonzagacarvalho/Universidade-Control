@@ -42,7 +42,9 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         existingUser.setName(user.getName());
         existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(passwordEncoder.encode(user.getPassword())); // Atualiza o hash da senha
+        if (!user.getPassword().equals(existingUser.getPassword())) {
+            existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         existingUser.setActive(user.isActive());
         if (user.getCourse() != null) {
             Course course = courseRepository.findById(user.getCourse().getId())

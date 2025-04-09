@@ -33,6 +33,7 @@
                 outlined
                 dense
                 required
+                :rules="[nameRule]"                
               />
               <v-text-field
                 v-model="user.email"
@@ -40,6 +41,7 @@
                 outlined
                 dense
                 required
+                :rules="[emailRule]"
               />
               <v-text-field
                 v-model="user.password"
@@ -48,23 +50,24 @@
                 outlined
                 dense
                 required
+                :rules="[passwordRule]"
               />
               <v-checkbox
                 v-model="user.active"
                 label="Ativo"
                 dense
-              />              
+              />
               <v-select
-                v-model="user.courseId"                
+                v-model="user.courseId"
                 :items="courses"
                 item-title="name"
-                item-value="id"                           
+                item-value="id"
                 label="Curso"
                 outlined
                 dense
                 required
+                :rules="[courseRule]"
               />
-
               <v-btn
                 type="submit"
                 color="primary"
@@ -149,6 +152,14 @@ const user = ref({ name: '', email: '', password: '', active: false, courseId: n
 
 const isEditing = ref(false);
 
+const nameRule = (value) => !!value || "O nome é obrigatório";
+const emailRule = (value) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(value) || "Por favor, insira um email válido";
+};
+const passwordRule = (value) => value.length >= 6 || "A senha deve ter pelo menos 6 caracteres";
+const courseRule = (value) => !!value || "Selecione um curso";
+
 const fetchUsers = async () => {
   const { data } = await api.get('/users');
   users.value = data;
@@ -164,6 +175,12 @@ const fetchCourses = async () => {
 
 const saveUser = async () => {
   try {
+    // Validações dos campos obrigatórios
+    if (!user.value.name || !user.value.email || !user.value.password || !user.value.courseId) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
     const userToSave = { 
       ...user.value, 
       courseId: { id: user.value.courseId } // Envia o curso como um objeto com o ID
@@ -204,6 +221,12 @@ const editUser = (selectedUser) => {
 
 const updateUser = async () => {
   try {
+    // Validações dos campos obrigatórios
+    if (!user.value.name || !user.value.email || !user.value.password || !user.value.courseId) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
     const userToUpdate = { 
       ...user.value, 
       courseId: { id: user.value.courseId } // Envia o curso como um objeto com o ID

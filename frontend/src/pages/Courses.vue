@@ -31,6 +31,7 @@
                 outlined
                 dense
                 required
+                :rules="[nameRule]"
               />
               <v-text-field
                 v-model="course.acronym"
@@ -38,6 +39,7 @@
                 outlined
                 dense
                 required
+                :rules="[acronymRule]"
               />
               <v-select
                 v-model="course.shift"
@@ -46,6 +48,7 @@
                 outlined
                 dense
                 required
+                :rules="[shiftRule]"                   
               />
               <v-btn
                 type="submit"
@@ -79,15 +82,15 @@
         md="8"
       >
         <v-card>
-          <v-card-title>
+          <v-card-title class="d-flex justify-center">
             <span>Lista de Cursos</span>
           </v-card-title>
           <v-card-text>
-            <v-list>
+            <v-list class="text-center">
               <v-list-item
                 v-for="course in courses"
                 :key="course.id"
-                class="d-flex justify-space-between"
+                class="d-flex justify-center"
               >
                 <div>
                   <strong>{{ course.name }}</strong> - {{ course.acronym }} -
@@ -124,9 +127,13 @@ import api from '@/plugins/axios';
 import { onMounted, ref } from 'vue';
 
 const courses = ref([]);
-const course = ref({ name: '', acronym: '', shift: 'manhã' });
-const shifts = ['manhã', 'tarde', 'noite'];
+const course = ref({ name: '', acronym: '', shift: 'Manhã' });
+const shifts = ['Manhã', 'Tarde', 'Noite'];
 const isEditing = ref(false);
+
+const nameRule = (value) => !!value || "O nome do curso é obrigatório";
+const acronymRule = (value) => !!value || "A sigla do curso é obrigatória";
+const shiftRule = (value) => !!value || "O turno do curso é obrigatório";
 
 const fetchCourses = async () => {
   const { data } = await api.get('/courses');
@@ -134,9 +141,29 @@ const fetchCourses = async () => {
 };
 
 const saveCourse = async () => {
-  await api.post('/courses', course.value);
-  resetForm();
-  fetchCourses();
+  try {
+    // Validações dos campos obrigatórios
+    if (!course.value.name || !course.value.acronym || !course.value.shift) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    console.log("Dados enviados para a API:", course.value);
+
+    // Faz a requisição para salvar o curso
+    await api.post('/courses', course.value);
+
+    // Atualiza a lista de cursos
+    fetchCourses();
+
+    // Reseta o formulário
+    resetForm();
+  } catch (error) {
+    console.error("Erro ao salvar o curso:", error);
+    if (error.response) {
+      console.error("Resposta da API:", error.response.data);
+    }
+  }
 };
 
 const editCourse = (selectedCourse) => {
@@ -146,11 +173,22 @@ const editCourse = (selectedCourse) => {
 
 const updateCourse = async () => {
   try {
+    // Validações dos campos obrigatórios
+    if (!course.value.name || !course.value.acronym || !course.value.shift) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
     console.log("Dados enviados para a API:", course.value);
-    const response = await api.put(`/courses/${course.value.id}`, course.value);
-    console.log("Resposta da API:", response);
-    resetForm();
+
+    // Faz a requisição para atualizar o curso
+    await api.put(`/courses/${course.value.id}`, course.value);
+
+    // Atualiza a lista de cursos
     fetchCourses();
+
+    // Reseta o formulário
+    resetForm();
   } catch (error) {
     console.error("Erro ao atualizar o curso:", error);
     if (error.response) {
