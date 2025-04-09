@@ -20,7 +20,7 @@
         md="8"
       >
         <v-card>
-          <v-card-title>
+          <v-card-title class="d-flex justify-center">
             <span>{{ isEditing ? "Editar Curso" : "Adicionar Novo Curso" }}</span>
           </v-card-title>
           <v-card-text>

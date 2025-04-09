@@ -22,7 +22,7 @@
         md="8"
       >
         <v-card>
-          <v-card-title>
+          <v-card-title class="d-flex justify-center">
             <span>{{ isEditing ? "Editar Usuário" : "Adicionar Novo Usuário" }}</span>
           </v-card-title>
           <v-card-text>
@@ -55,9 +55,10 @@
                 dense
               />              
               <v-select
-                v-model="user.courseId"
+                v-model="user.courseId"                
                 :items="courses"
-                item-title="value"                            
+                item-title="name"
+                item-value="id"                           
                 label="Curso"
                 outlined
                 dense
@@ -156,16 +157,16 @@ const fetchUsers = async () => {
 const fetchCourses = async () => {
   const { data } = await api.get('/courses');
   courses.value = data.map(course => ({
-      value: course.name
-  }));
-  console.log(data);
+    id: course.id,  
+    name: course.name
+  }));  
 };
 
 const saveUser = async () => {
   try {
     const userToSave = { 
       ...user.value, 
-      courseId: { id: user.value.courseId } // Inclui o ID do curso no formato esperado
+      courseId: { id: user.value.courseId } // Envia o curso como um objeto com o ID
     };
 
     console.log("Dados enviados para a API:", userToSave);
@@ -203,11 +204,12 @@ const editUser = (selectedUser) => {
 
 const updateUser = async () => {
   try {
-    // Cria um objeto para enviar à API
     const userToUpdate = { 
       ...user.value, 
-       courseId: user.value.courseId // Envia apenas o ID do curso
+      courseId: { id: user.value.courseId } // Envia o curso como um objeto com o ID
     };
+
+    console.log("Dados enviados para a API:", userToUpdate);
 
     // Faz a requisição de atualização
     await api.put(`/users/${user.value.id}`, userToUpdate);
@@ -217,7 +219,7 @@ const updateUser = async () => {
     if (index !== -1) {
       users.value[index] = { 
         ...user.value, 
-        course: courses.value.find(course => course.value === user.value.courseId) // Atualiza o curso completo
+        course: courses.value.find(course => course.id === user.value.courseId) // Atualiza o curso completo
       };
     }
 

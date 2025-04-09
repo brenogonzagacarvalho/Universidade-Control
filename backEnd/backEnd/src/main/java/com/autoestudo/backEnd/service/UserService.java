@@ -22,6 +22,7 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User save(User user) {
+        System.out.println("Dados recebidos no backend: " + user);
         if (user.getCourse() != null) {
             Course course = courseRepository.findById(user.getCourse().getId())
                     .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
@@ -36,6 +37,7 @@ public class UserService {
     }
 
     public User update(Long id, User user) {
+        System.out.println("Dados recebidos no backend: " + user);
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         existingUser.setName(user.getName());
