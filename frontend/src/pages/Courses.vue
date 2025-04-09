@@ -4,6 +4,18 @@
       justify="center"
       class="mb-4"
     >
+      <v-btn
+        color="primary"
+        @click="$router.push('/users')"
+      >
+        Ir para Usuários
+      </v-btn>
+    </v-row>
+
+    <v-row
+      justify="center"
+      class="mb-4"
+    >
       <v-col
         cols="12"
         md="8"

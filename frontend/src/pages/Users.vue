@@ -1,5 +1,17 @@
 <template>
   <v-container>
+    <v-row
+      justify="center"
+      class="mb-4"
+    >
+      <v-btn
+        color="primary"
+        @click="$router.push('/courses')"
+      >
+        Ir para Cursos
+      </v-btn>
+    </v-row>
+
     <v-row 
       justify="center" 
       class="mb-4"
