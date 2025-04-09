@@ -1,11 +1,12 @@
 package com.autoestudo.backEnd.service;
 
-import com.autoestudo.backEnd.entity.Course;
-import com.autoestudo.backEnd.repository.CourseRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.autoestudo.backEnd.entity.Course;
+import com.autoestudo.backEnd.repository.CourseRepository;
 
 @Service
 public class CourseService {
@@ -22,5 +23,14 @@ public class CourseService {
 
     public void delete(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    public Course update(Long id, Course course) {
+        Course existingCourse = courseRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Curso não encontrado com o ID: " + id));
+        existingCourse.setName(course.getName());
+        existingCourse.setAcronym(course.getAcronym());
+        existingCourse.setShift(course.getShift());
+        return courseRepository.save(existingCourse);
     }
 }

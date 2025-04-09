@@ -145,9 +145,18 @@ const editCourse = (selectedCourse) => {
 };
 
 const updateCourse = async () => {
-  await api.put(`/courses/${course.value.id}`, course.value); // Atualiza o curso no backend
-  resetForm();
-  fetchCourses();
+  try {
+    console.log("Dados enviados para a API:", course.value);
+    const response = await api.put(`/courses/${course.value.id}`, course.value);
+    console.log("Resposta da API:", response);
+    resetForm();
+    fetchCourses();
+  } catch (error) {
+    console.error("Erro ao atualizar o curso:", error);
+    if (error.response) {
+      console.error("Resposta da API:", error.response.data);
+    }
+  }
 };
 
 const deleteCourse = async (id) => {
