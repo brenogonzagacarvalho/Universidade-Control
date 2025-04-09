@@ -58,7 +58,7 @@ const login = async () => {
   try {
     await api.post('/auth/login', { email: email.value, password: password.value });
     alert('Login realizado com sucesso!');
-    router.push('/'); // Redireciona para a página inicial
+    router.push('/users'); // Redireciona para a página inicial
   } catch {
     alert('Credenciais inválidas');
   }

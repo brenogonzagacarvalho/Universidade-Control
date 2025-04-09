@@ -104,6 +104,7 @@
                   <v-btn
                     color="error"
                     text
+                    class="ml-2"
                     @click="deleteCourse(course.id)"
                   >
                     Excluir
