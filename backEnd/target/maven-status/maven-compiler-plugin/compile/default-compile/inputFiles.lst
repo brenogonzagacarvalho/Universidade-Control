@@ -1,0 +1,11 @@
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/entity/Course.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/repository/CourseRepository.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/AutoEstutoApplication.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/controller/CourseController.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/service/CourseService.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/config/SecurityConfig.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/entity/User.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/service/UserService.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/controller/AuthController.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/repository/UserRepository.java
+/home/brenogonzaga/Dev/backEnd/src/main/java/com/autoestudo/backEnd/controller/UserController.java

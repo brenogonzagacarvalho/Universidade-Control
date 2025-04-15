@@ -1,0 +1,12 @@
+com/autoestudo/backEnd/config/SecurityConfig$1.class
+com/autoestudo/backEnd/entity/User.class
+com/autoestudo/backEnd/controller/UserController.class
+com/autoestudo/backEnd/service/UserService.class
+com/autoestudo/backEnd/repository/UserRepository.class
+com/autoestudo/backEnd/config/SecurityConfig.class
+com/autoestudo/backEnd/entity/Course.class
+com/autoestudo/backEnd/controller/CourseController.class
+com/autoestudo/backEnd/repository/CourseRepository.class
+com/autoestudo/backEnd/service/CourseService.class
+com/autoestudo/backEnd/AutoEstutoApplication.class
+com/autoestudo/backEnd/controller/AuthController.class
