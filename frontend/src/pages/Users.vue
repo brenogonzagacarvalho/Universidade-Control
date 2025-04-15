@@ -241,7 +241,7 @@ const updateUser = async () => {
 
     const userToUpdate = { 
       ...user.value, 
-      courseId: { id: user.value.courseId } // Envia o curso como um objeto com o ID
+      course: { id: user.value.courseId } // Envia o curso como um objeto com o ID
     };
 
     console.log("Dados enviados para a API:", userToUpdate);
@@ -257,6 +257,8 @@ const updateUser = async () => {
         course: courses.value.find(course => course.id === user.value.courseId) // Atualiza o curso completo
       };
     }
+    await fetchUsers();
+    console.log("Usuário atualizado com sucesso!");
 
     // Reseta o formulário
     resetForm();
